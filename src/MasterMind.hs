@@ -2,7 +2,14 @@ module MasterMind where
 
 import Data.List
 
-data Answer = Answer { correct :: Int, misplaced :: Int, wrong :: Int }
+data Answer a = Answer { guess :: [a], correct :: Int, misplaced :: Int,
+                         wrong :: Int } deriving Eq
+
+instance (Show a) => Show (Answer a) where
+    show (Answer g c m w) = "Assessment for guess: " ++ show g ++
+                        "\nCorrect:   " ++ show c ++
+                        "\nMisplaced: " ++ show m ++
+                        "\nWrong:     " ++ show w
 
 -- TODO: Rewrite enabling tail recursion optimisation.
 extractCorrect :: (Eq a) => [a] -> [a] -> ([a], [a], [a])
@@ -20,3 +27,12 @@ countMisplaced _ [] = 0
 countMisplaced (p:pat) guess
     | p `elem` guess = 1 + countMisplaced pat (delete p guess)
     | otherwise = 0 + countMisplaced pat guess
+
+masterMind :: (Eq a) => [a] -> [a] -> Answer a
+masterMind pattern guess =
+    let (cor, newPattern, newGuess) = extractCorrect guess pattern
+        correct = length cor
+        misplaced = countMisplaced newPattern newGuess
+        total = max (length pattern) (length guess) in
+        Answer guess correct misplaced (total - correct - misplaced)
+

@@ -19,7 +19,17 @@ testMisplacement = TestLabel "Test function counting misplaced guesses." $
     1 @=? countMisplaced "BFG" "ABC"
     3 @=? countMisplaced "ABXFZ" "XXFAA"
 
-testSuite = TestList [testCorrectness, testMisplacement]
+testMasterMind = TestLabel "Test main guess-assessment function." $ TestCase $ do
+    Answer ""    0 0 0 @=? masterMind ""    ""
+    Answer "A"   1 0 2 @=? masterMind "ABC" "A"
+    Answer "CBA" 1 2 0 @=? masterMind "ABC" "CBA"
+    Answer "SVN" 0 0 3 @=? masterMind "GIT" "SVN"
+    Answer "ZUS" 2 0 1 @=? masterMind "ZU"  "ZUS"
+    Answer "FBI" 3 0 0 @=? masterMind "FBI" "FBI"
+    Answer "PPS" 2 0 1 @=? masterMind "PSS" "PPS"
+    Answer "XX"  0 1 2 @=? masterMind "PSX" "XX"
+
+testSuite = TestList [testCorrectness, testMisplacement, testMasterMind]
 
 main = do
     counts <- runTestTT $ TestList [testSuite]
