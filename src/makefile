@@ -6,9 +6,9 @@ bindir=../bin
 odir=-odir ../obj
 hidir=-hidir ../interfaces
 
-all: MasterMind.hs
+all:
 	@echo "Building MasterMind..."
-	@ghc $(GHC_PARAMS) $(MAIN_MODULE).hs -o $(bindir)/$(MAIN_MODULE) $(odir) $(hidir)
+	ghc $(GHC_PARAMS) mmind.hs -o $(bindir)/$(MAIN_MODULE) $(odir) $(hidir)
 	@echo "Done."
 
 commit: test
@@ -16,7 +16,7 @@ commit: test
 
 test:
 	@echo "Building test suite for MasterMind..."
-	@ghc $(GHC_PARAMS) testSuite.hs -o $(bindir)/test $(odir) $(hidir)
+	ghc $(GHC_PARAMS) testSuite.hs -o $(bindir)/test $(odir) $(hidir)
 	@echo "Done.\nEntering bin directory...\nRunning tests:"
 	@cd $(bindir) && ./test
 

@@ -36,3 +36,14 @@ masterMind pattern guess =
         total = max (length pattern) (length guess) in
         Answer guess correct misplaced (total - correct - misplaced)
 
+playMM :: String -> Int -> IO String
+playMM pattern tries = do
+    putStrLn ("Guess the sequence. " ++ show tries ++ " tries remaining.")
+    guess <- getLine
+    result <- return (masterMind pattern guess)
+    print result
+    if correct result == length pattern
+    then return ("\nCorrect! The pattern is: " ++ show pattern ++ "\nYou won!")
+    else if tries > 0
+         then playMM pattern (tries - 1)
+         else return ("Wrong! The pattern is: " ++ show pattern ++ "\nTry harder next time.")
