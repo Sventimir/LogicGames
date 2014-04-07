@@ -20,11 +20,6 @@ test:
 	@echo "Done.\nEntering bin directory...\nRunning tests:"
 	@cd $(bindir) && ./test
 
-MasterMind.hs:
-	@echo "Building $(MAIN_MODULE) library..."
-	@ghc $(GHC_PARMS) $(MAIN_MODULE).hs -o $(bindir)/$(MAIN_MODULE) $(odir) $(hidir)
-	@echo "Done."
-
 clean:
 	@echo "Deleting object and interface files..."
 	@rm -rf ../obj ../interfaces && echo "Done."
