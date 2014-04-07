@@ -11,6 +11,8 @@ testCorrectness = TestLabel "Test function counting correct guesses." $
     "HWDP" @=? findCorrect "XHWDP" "YHWDP"
     "C" @=? findCorrect "ABCDE" "EDCBA"
     "" @=? findCorrect (replicate 999999 'A') (replicate 999999 'X')
+    replicate 100 'C' @=? findCorrect (concat $ replicate 100 "ABCDE")
+                                      (concat $ replicate 100 "EDCBA")
 
 testMisplacement = TestLabel "Test function counting misplaced guesses." $
         TestCase $ do
