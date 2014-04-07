@@ -4,12 +4,13 @@ import MasterMind
 
 testCorrectness = TestLabel "Test function counting correct guesses." $
         TestCase $ do
-    ("", "", "") @=? extractCorrect "" ""
-    ("", "A", "F") @=? extractCorrect "A" "F"
-    ("X", "", "") @=? extractCorrect "X" "X"
-    ("B", "ADEF", "CEAD") @=? extractCorrect "ABDEF" "CBEAD"
-    ("HWDP", "X", "Y") @=? extractCorrect "XHWDP" "YHWDP"
-    ("C", "ABDE", "EDBA") @=? extractCorrect "ABCDE" "EDCBA"
+    "" @=? findCorrect "" ""
+    "" @=? findCorrect "A" "F"
+    "X" @=? findCorrect "X" "X"
+    "B" @=? findCorrect "ABDEF" "CBEAD"
+    "HWDP" @=? findCorrect "XHWDP" "YHWDP"
+    "C" @=? findCorrect "ABCDE" "EDCBA"
+    "" @=? findCorrect (replicate 999999 'A') (replicate 999999 'X')
 
 testMisplacement = TestLabel "Test function counting misplaced guesses." $
         TestCase $ do

@@ -11,15 +11,12 @@ instance (Show a) => Show (Answer a) where
                         "\nMisplaced: " ++ show m ++
                         "\nWrong:     " ++ show w
 
--- TODO: Rewrite enabling tail recursion optimisation.
-extractCorrect :: (Eq a) => [a] -> [a] -> ([a], [a], [a])
-extractCorrect [] guess = ([], [], guess)
-extractCorrect pattern [] = ([], pattern, [])
-extractCorrect (p:pat) (g:guess)
-    | p == g = (p : newCorrect, newPat, newGuess)
-    | otherwise = (newCorrect, p : newPat, g : newGuess)
-        where
-        (newCorrect, newPat, newGuess) = extractCorrect pat guess
+findCorrect :: (Eq a) => [a] -> [a] -> [a]
+findCorrect [] _ = []
+findCorrect _ [] = []
+findCorrect (p:pattern) (g:guess)
+    | p == g = p : findCorrect pattern guess
+    |otherwise = findCorrect pattern guess
 
 countMisplaced :: (Eq a) => [a] -> [a] -> Int
 countMisplaced [] _ = 0
@@ -30,9 +27,9 @@ countMisplaced (p:pat) guess
 
 masterMind :: (Eq a) => [a] -> [a] -> Answer a
 masterMind pattern guess =
-    let (cor, newPattern, newGuess) = extractCorrect guess pattern
+    let cor = findCorrect pattern guess
         correct = length cor
-        misplaced = countMisplaced newPattern newGuess
+        misplaced = countMisplaced (pattern \\ cor) (guess \\ cor)
         total = max (length pattern) (length guess) in
         Answer guess correct misplaced (total - correct - misplaced)
 
