@@ -39,7 +39,7 @@ playMM pattern tries = do
     guess <- getLine
     result <- return (masterMind pattern guess)
     print result
-    if correct result == length pattern
+    if wrong result == 0 && misplaced result == 0
     then return ("\nCorrect! The pattern is: " ++ show pattern ++ "\nYou won!")
     else if tries > 0
          then playMM pattern (tries - 1)
