@@ -2,6 +2,6 @@ A Haskell implementation of the popular game. In order to compile the program, y
 
 $ make
 
-The binary should appear in bin/ directory. This should work on either Linux or Windows with GHC 7.6.3.
+The binary should appear in bin/ directory. This should work on either Linux or Windows with GHC 7.6.3 present in the system.
 
-For the moment program is unable to generate random seuences, so you have to have your friend input it for you. Generation of random sequences and saving configuration to a file are features to be implemented with top priority.
+For the moment program is unable to generate random sequences, so you have to have your friend input it for you. Generation of random sequences and saving configuration to a file are features to be implemented with top priority.
