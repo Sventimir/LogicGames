@@ -1,10 +1,11 @@
 import System.IO
+import System.Random
 import Control.Exception
 import MasterMind
 
 getPattern :: IO String
 getPattern = do
-    putStrLn "Please enter a sequence of [ABCDE] to be guessed: "
+    putStrLn "Please enter a sequence of [ABCDE] to be guessed or press [Enter] to generate a random one: "
     hFlush stdout
     pass <- withEcho False getLine
     putChar '\n'
@@ -16,6 +17,8 @@ withEcho echo action = do
     bracket_ (hSetEcho stdin echo) (hSetEcho stdin old) action
 
 main :: IO ()
-main = do
-    pattern <- getPattern
+main = let getRandom = take 5 . randomRs ('A', 'E') in do
+    pat <- getPattern
+    gen <- getStdGen
+    pattern <- return (if null pat then getRandom gen else pat)
     playMM pattern 10 >>= putStrLn
