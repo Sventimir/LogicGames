@@ -1,6 +1,7 @@
 module MasterMind where
 
 import Data.List
+import Prompt
 
 data Answer a = Answer { guess :: [a], correct :: Int, misplaced :: Int,
                          wrong :: Int } deriving Eq
@@ -35,12 +36,15 @@ masterMind pattern guess =
 
 playMM :: String -> Int -> IO String
 playMM pattern tries = do
-    putStrLn ("Guess the sequence. " ++ show tries ++ " tries remaining.")
-    guess <- getLine
+    guess <- runPrompt guessPrompt ()
     result <- return (masterMind pattern guess)
     print result
     if wrong result == 0 && misplaced result == 0
     then return ("\nCorrect! The pattern is: " ++ show pattern ++ "\nYou won!")
     else if tries > 0
          then playMM pattern (tries - 1)
-         else return ("Wrong! The pattern is: " ++ show pattern ++ "\nTry harder next time.")
+         else return ("Wrong! The pattern is: " ++ show pattern ++
+                      "\nTry harder next time.")
+    where
+    guessPrompt = Prompt (\i -> "Guess the sequence. " ++ show tries ++
+                " tries remaining: ") id
