@@ -1,8 +1,8 @@
 import System.Random
 import Data.Configurator
 import qualified Data.Text as Txt
-import Prompt
-import MasterMind
+import Lib.Prompt
+import MasterMind.MasterMind
 
 passPromptText :: String -> String
 passPromptText chrs = "Please enter a sequence of [" ++ chrs ++
