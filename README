@@ -4,4 +4,4 @@ $ make
 
 The binary should appear in bin/ directory. This should work on either Linux or Windows with GHC 7.6.3 present in the system.
 
-For the moment program is unable to generate random sequences, so you have to have your friend input it for you. Generation of random sequences and saving configuration to a file are features to be implemented with top priority.
+Program is capable of generating random sequences for you. By default it generates 4-chars long sequences of "ABCD", but this may be overridden by config file included. In order to work it must be placed in cfg/mmind.cfg path, however the program can work without it.
