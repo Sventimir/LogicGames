@@ -47,4 +47,4 @@ playMM pattern tries = do
                       "\nTry harder next time.")
     where
     guessPrompt = Prompt (\i -> "Guess the sequence. " ++ show tries ++
-                " tries remaining: ") id
+                " attempts remaining: ") id
