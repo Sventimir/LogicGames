@@ -1,19 +1,21 @@
-# Makefile for MasterMind Haskell project.
+# Makefile for LogicGames Haskell project.
 
 SHELL:=/bin/bash
 GHC_PARAMS=
-MAIN_MODULE=MasterMind
 bindir=../bin
 odir=../obj
 hidir=../interfaces
 
-all: mmind
+all: all_info mmind
+
+all_info:
+	@echo "Building LogicGames binaries..."
 
 test: test_mmind
 
 mmind: create_env
 	@echo "Building MasterMind..."
-	ghc $(GHC_PARAMS) mmind.hs -o $(bindir)/$(MAIN_MODULE) -odir $(odir) -hidir $(hidir)
+	ghc $(GHC_PARAMS) mmind.hs -o $(bindir)/MasterMind -odir $(odir) -hidir $(hidir)
 	@echo "Done."
 
 commit: test
@@ -28,6 +30,7 @@ test_mmind: create_env
 create_env:
 	@[[ -d "$(odir)" ]] || mkdir "$(odir)"
 	@[[ -d "$(hidir)" ]] || mkdir "$(hidir)"
+	@[[ -d "$(bindir)" ]] || mkdir "$(bindir)"
 
 clean:
 	@echo "Deleting object and interface files..."
