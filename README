@@ -1,7 +1,10 @@
-A Haskell implementation of the popular game. In order to compile the program, you need just to run:
+A Haskell implementation of a few logic games. In order to compile them, you need just to run:
 
 $ make
 
-The binary should appear in bin/ directory. This should work on either Linux or Windows with GHC 7.6.3 present in the system.
+The binaries should appear in bin/ directory. This should work on either Linux or Windows with GHC 7.6.3 present in the system.
 
-Program is capable of generating random sequences for you. By default it generates 4-chars long sequences of "ABCD", but this may be overridden by config file included. In order to work it must be placed in cfg/mmind.cfg path, however the program can work without it.
+Actually developed games include:
+
+MasterMind - a Haskell implementation of the popular logic game.
+Program is capable of generating random sequences for you to guess. By default it generates 4-chars long sequences of "ABCD", but this may be overridden by config file included. In order to work it must be placed in cfg/mmind.cfg path, however the program can work without it.
